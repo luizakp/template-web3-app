@@ -29,6 +29,15 @@ const nextConfig = {
     })
     return config
   },
+  async redirects() {
+    return [
+      {
+        source: "/integration/livepeer",
+        destination: "/integration/livepeer/video-on-demand",
+        permanent: false,
+      },
+    ];
+  },
 }
 
 export default nextConfig
