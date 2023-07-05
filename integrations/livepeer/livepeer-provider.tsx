@@ -1,4 +1,4 @@
-import { PropsWithChildren } from 'react'
+import { ReactNode } from 'react'
 
 import { LivepeerConfig, ThemeConfig } from '@livepeer/react'
 
@@ -14,7 +14,7 @@ const livepeerTheme: ThemeConfig = {
   },
 }
 
-export function LivepeerProvider({ children }: PropsWithChildren) {
+export function LivepeerProvider({ children }: { children: ReactNode }) {
   return (
     <LivepeerConfig client={livepeerClient} theme={livepeerTheme}>
       {children}

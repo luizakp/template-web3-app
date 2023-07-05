@@ -2,7 +2,6 @@
 import { ReactNode } from 'react'
 
 import { motion } from 'framer-motion'
-import Image from 'next/image'
 import { usePathname } from 'next/navigation'
 import Balancer from 'react-wrap-balancer'
 
@@ -12,15 +11,11 @@ import { turboIntegrations } from '@/data/turbo-integrations'
 import { LivepeerProvider } from '@/integrations/livepeer/livepeer-provider'
 import { cn } from '@/lib/utils'
 
-interface LayoutIntegrationProps {
-  children: ReactNode
-}
-
 const videoOnDemandPath = '/integration/livepeer/video-on-demand'
 const livestreamPath = '/integration/livepeer/livestream'
 const watchVideoPath = '/integration/livepeer/video'
 
-export default function LayoutIntegration({ children }: LayoutIntegrationProps) {
+export default function LayoutIntegration({ children }: { children: ReactNode }) {
   const pathname = usePathname()
 
   return (
@@ -41,9 +36,8 @@ export default function LayoutIntegration({ children }: LayoutIntegrationProps) 
         }}>
         <div className="flex-center flex flex-1 flex-col items-center justify-center">
           <div className="max-w-screen-xl px-5 text-center xl:px-0">
-            <Image alt="Livepeer Icon" className="mx-auto mb-5" height={100} src={turboIntegrations.livepeer.imgDark} width={100} />
             <motion.h1
-              className="text-gradient-livepeer my-4 text-center text-4xl font-bold tracking-[-0.02em] drop-shadow-sm md:text-8xl md:leading-[6rem]"
+              className="text-gradient-sand my-4 text-center text-4xl font-bold tracking-[-0.02em] drop-shadow-sm md:text-8xl md:leading-[6rem]"
               variants={FADE_DOWN_ANIMATION_VARIANTS}>
               {turboIntegrations.livepeer.name}
             </motion.h1>
@@ -55,14 +49,14 @@ export default function LayoutIntegration({ children }: LayoutIntegrationProps) 
                 <button className="btn btn-primary">Documentation</button>
               </LinkComponent>
               <motion.div className="mt-8 flex justify-center gap-14 text-2xl" variants={FADE_DOWN_ANIMATION_VARIANTS}>
-                <LinkComponent href={videoOnDemandPath}>
-                  <button className={cn('btn hover:opacity-75', (pathname === livestreamPath || pathname === watchVideoPath) && 'opacity-50')}>
-                    Video on demand
-                  </button>
-                </LinkComponent>
                 <LinkComponent href={livestreamPath}>
                   <button className={cn('btn hover:opacity-75', (pathname === videoOnDemandPath || pathname === watchVideoPath) && 'opacity-50')}>
                     Livestream
+                  </button>
+                </LinkComponent>
+                <LinkComponent href={videoOnDemandPath}>
+                  <button className={cn('btn hover:opacity-75', (pathname === livestreamPath || pathname === watchVideoPath) && 'opacity-50')}>
+                    Video on demand
                   </button>
                 </LinkComponent>
                 <LinkComponent href={watchVideoPath}>
