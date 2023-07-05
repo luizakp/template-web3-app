@@ -76,7 +76,7 @@ export function UploadFile() {
         <div>
           <div
             {...getRootProps()}
-            className="relative flex w-full flex-col items-center rounded-lg border-2 border-dashed border-gray-300 p-12 text-center hover:border-gray-400 focus:outline-none focus:ring-2 focus:ring-aquaGreen-300 focus:ring-offset-2">
+            className="relative flex w-full flex-col items-center rounded-lg border-2 border-dashed border-gray-300 p-12 text-center hover:border-gray-400 focus:outline-none focus:ring-2 focus:ring-emerald-300 focus:ring-offset-2">
             <input {...getInputProps()} />
 
             <BiVideoPlus fill="rgb(226 232 240)" size={108} />
@@ -86,7 +86,7 @@ export function UploadFile() {
         </div>
       ) : (
         <div>
-          <div className="relative flex w-full flex-col items-center gap-y-4 rounded-lg border-2 border-dashed border-gray-300 p-12 text-center hover:border-gray-400 focus:outline-none focus:ring-2 focus:ring-aquaGreen-300 focus:ring-offset-2">
+          <div className="relative flex w-full flex-col items-center gap-y-4 rounded-lg border-2 border-dashed border-gray-300 p-12 text-center hover:border-gray-400 focus:outline-none focus:ring-2 focus:ring-emerald-300 focus:ring-offset-2">
             {video && <p>{video.name}</p>}
             {progress && totalProgress > 0 && totalProgress < 100 && <Progress value={totalProgress} />}
             {progressFormatted && <p>{progressFormatted}</p>}
@@ -96,7 +96,7 @@ export function UploadFile() {
 
       {!asset?.[0].id && (
         <button
-          className="btn btn-aquaGreen"
+          className="btn btn-emerald"
           disabled={isLoading || !createAsset}
           onClick={() => {
             createAsset?.()
