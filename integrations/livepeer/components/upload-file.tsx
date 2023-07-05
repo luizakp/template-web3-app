@@ -1,16 +1,14 @@
 import { useCallback, useEffect, useMemo, useState } from 'react'
 
-import { Asset, useCreateAsset } from '@livepeer/react'
+import { useCreateAsset } from '@livepeer/react'
+import { useRouter } from 'next/navigation'
 import { useDropzone } from 'react-dropzone'
 import { BiVideoPlus } from 'react-icons/bi'
 
 import { Progress } from '@/components/ui/progress'
 
-interface UploadFileProps {
-  changeAsset: (newAsset: Asset) => void
-}
-
-export function UploadFile({ changeAsset }: UploadFileProps) {
+export function UploadFile() {
+  const route = useRouter()
   const [video, setVideo] = useState<File | undefined>()
   const {
     mutate: createAsset,
@@ -68,9 +66,9 @@ export function UploadFile({ changeAsset }: UploadFileProps) {
 
   useEffect(() => {
     if (asset?.[0]) {
-      changeAsset(asset[0])
+      route.push(`/integration/livepeer/video/${asset[0].id}`)
     }
-  }, [asset, changeAsset])
+  }, [asset])
 
   return (
     <div className="flex h-full w-full flex-col gap-y-4">

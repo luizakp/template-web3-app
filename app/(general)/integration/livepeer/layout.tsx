@@ -18,6 +18,7 @@ interface LayoutIntegrationProps {
 
 const videoOnDemandPath = '/integration/livepeer/video-on-demand'
 const livestreamPath = '/integration/livepeer/livestream'
+const watchVideoPath = '/integration/livepeer/video'
 
 export default function LayoutIntegration({ children }: LayoutIntegrationProps) {
   const pathname = usePathname()
@@ -55,17 +56,26 @@ export default function LayoutIntegration({ children }: LayoutIntegrationProps) 
               </LinkComponent>
               <motion.div className="mt-8 flex justify-center gap-14 text-2xl" variants={FADE_DOWN_ANIMATION_VARIANTS}>
                 <LinkComponent href={videoOnDemandPath}>
-                  <button className={cn('btn hover:opacity-75', pathname === livestreamPath && 'opacity-50')}>Video on demand</button>
+                  <button className={cn('btn hover:opacity-75', (pathname === livestreamPath || pathname === watchVideoPath) && 'opacity-50')}>
+                    Video on demand
+                  </button>
                 </LinkComponent>
                 <LinkComponent href={livestreamPath}>
-                  <button className={cn('btn hover:opacity-75', pathname === videoOnDemandPath && 'opacity-50')}>Livestream</button>
+                  <button className={cn('btn hover:opacity-75', (pathname === videoOnDemandPath || pathname === watchVideoPath) && 'opacity-50')}>
+                    Livestream
+                  </button>
+                </LinkComponent>
+                <LinkComponent href={watchVideoPath}>
+                  <button className={cn('btn hover:opacity-75', (pathname === videoOnDemandPath || pathname === livestreamPath) && 'opacity-50')}>
+                    Watch Video
+                  </button>
                 </LinkComponent>
               </motion.div>
             </motion.div>
           </div>
         </div>
-        <motion.div className="h-full w-full" variants={FADE_DOWN_ANIMATION_VARIANTS}>
-          {children}
+        <motion.div className="flex h-full w-full justify-center" variants={FADE_DOWN_ANIMATION_VARIANTS}>
+          <div className="w-7/12">{children}</div>
         </motion.div>
       </motion.div>
     </LivepeerProvider>
