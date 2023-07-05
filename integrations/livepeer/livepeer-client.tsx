@@ -8,6 +8,6 @@ if (!env.NEXT_PUBLIC_LIVEPEER_API_KEY) {
 
 export const livepeerClient = createReactClient({
   provider: studioProvider({
-    apiKey: process.env.NEXT_PUBLIC_LIVEPEER_API_KEY as string,
+    apiKey: env.NEXT_PUBLIC_LIVEPEER_API_KEY,
   }),
 })
