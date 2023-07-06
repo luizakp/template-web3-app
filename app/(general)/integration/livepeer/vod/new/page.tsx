@@ -1,11 +1,11 @@
 'use client'
 
-import { VideoOnDemand } from '@/integrations/livepeer/components/video-on-demand'
+import { UploadFile } from '@/integrations/livepeer/components/upload-file'
 
 export default function PageIntegration() {
   return (
     <div className="h-full w-full">
-      <VideoOnDemand />
+      <UploadFile />
     </div>
   )
 }
