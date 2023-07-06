@@ -13,6 +13,7 @@ interface CommonPlayerProps {
   title: string
   poster?: StaticImageData
   containerBorderRadius?: `${string}px`
+  autoPlay?: boolean
 }
 
 interface PlayerFileOrStreamProps extends CommonPlayerProps {
@@ -29,7 +30,15 @@ interface PlayerIpfsUrlProps extends CommonPlayerProps {
 
 type PlayerProps = PlayerFileOrStreamProps | PlayerIpfsUrlProps
 
-export function PlayerComponent({ type, ipfsUrl, playbackId, title, poster = defaultPoster, containerBorderRadius = '0px' }: PlayerProps) {
+export function PlayerComponent({
+  type,
+  ipfsUrl,
+  playbackId,
+  title,
+  poster = defaultPoster,
+  containerBorderRadius = '0px',
+  autoPlay = false,
+}: PlayerProps) {
   const PosterImage = () => <Image priority alt={title} placeholder="blur" src={poster} />
 
   const source = type === PlayerType.IPFS_URL ? { src: ipfsUrl } : { playbackId }
@@ -42,6 +51,7 @@ export function PlayerComponent({ type, ipfsUrl, playbackId, title, poster = def
       poster={<PosterImage />}
       title={title}
       {...source}
+      autoPlay={autoPlay}
       controls={{
         autohide: 3000,
       }}
