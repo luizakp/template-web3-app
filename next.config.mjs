@@ -28,16 +28,7 @@ const nextConfig = {
       options: { assetPrefix: '' },
     })
     return config
-  },
-  async redirects() {
-    return [
-      {
-        source: "/integration/livepeer",
-        destination: "/integration/livepeer/video-on-demand",
-        permanent: false,
-      },
-    ];
-  },
+  }
 }
 
 export default nextConfig
