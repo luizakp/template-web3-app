@@ -4,6 +4,9 @@ import { useMemo, useState } from 'react'
 
 import { useCreateStream } from '@livepeer/react'
 import { useForm } from 'react-hook-form'
+import { BiInfoCircle } from 'react-icons/bi'
+
+import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip'
 
 import { PlayerComponent, PlayerType } from './player'
 
@@ -17,6 +20,7 @@ export const CreateStream = () => {
   const { mutate: createStream, data: streamData, status } = useCreateStream(streamName ? { name: streamName } : null)
 
   const OBS_URL = 'https://obsproject.com/'
+  const streamIdTooltip = 'This is your Stream ID. You can copy and use to watch on the player'
 
   const isLoading = useMemo(() => status === 'loading', [status])
 
@@ -43,15 +47,23 @@ export const CreateStream = () => {
             <h2 className="text-center text-xl font-bold text-yellow-200">Your stream was succesfuly created!</h2>
             <span>
               To make the stream active, you must configure your{' '}
-              <a className="underline underline-offset-2" href={OBS_URL} rel="noopener noreferrer" target="_blank">
+              <a
+                className="font-semibold underline decoration-yellow-200 underline-offset-2"
+                href={OBS_URL}
+                rel="noopener noreferrer"
+                target="_blank">
                 OBS
               </a>{' '}
               by following the steps below:
             </span>
             <ol className="list-inside list-decimal">
               <li>Open OBS</li>
-              <li>Go to Settings</li>
-              <li>Go to Stream</li>
+              <li>
+                Go to <span className="font-semibold">Settings</span>
+              </li>
+              <li>
+                Go to <span className="font-semibold">Stream</span>
+              </li>
               <li>
                 Set Service to <span className="font-semibold">Custom...</span>
               </li>
@@ -61,8 +73,12 @@ export const CreateStream = () => {
               <li>
                 Set <span className="font-semibold">Stream Key</span> to the Stream Key provided below
               </li>
-              <li>Click Apply and then OK</li>
-              <li>Click Start Streaming</li>
+              <li>
+                Click <span className="font-semibold">Apply</span> and then <span className="font-semibold">OK</span>
+              </li>
+              <li>
+                Click <span className="font-semibold">Start Streaming</span>
+              </li>
             </ol>
             <span>
               With this proccess, you will be able to stream whatever is set as <span className="font-semibold">Sources</span> on your OBS
@@ -71,7 +87,7 @@ export const CreateStream = () => {
         )}
       </div>
       {streamData && (
-        <div className="card w-full">
+        <div className="card w-full selection:bg-yellow-200">
           <div className="flex flex-col gap-y-4">
             <div>
               <label>RTMP Ingest URL</label>
@@ -82,7 +98,16 @@ export const CreateStream = () => {
               <input className="input mt-4" value={streamData?.streamKey} />
             </div>
             <div>
-              <label>Stream ID</label>
+              <div className="flex items-center gap-x-2">
+                <label>Stream ID</label>
+                <Tooltip>
+                  <TooltipTrigger>
+                    <BiInfoCircle />
+                  </TooltipTrigger>
+                  <TooltipContent>{streamIdTooltip}</TooltipContent>
+                </Tooltip>
+              </div>
+
               <input className="input mt-4" value={streamData.id} />
             </div>
           </div>
