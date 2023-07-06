@@ -74,7 +74,7 @@ export const turboIntegrations = {
   },
   livepeer: {
     name: 'Livepeer',
-    href: '/integration/livepeer/video-on-demand',
+    href: '/integration/livepeer',
     url: 'https://livepeer.org/',
     description: 'Livepeer is a decentralized video streaming network.',
     imgLight: '/integrations/livepeer.svg',

@@ -11,9 +11,8 @@ import { turboIntegrations } from '@/data/turbo-integrations'
 import { LivepeerProvider } from '@/integrations/livepeer/livepeer-provider'
 import { cn } from '@/lib/utils'
 
-const videoOnDemandPath = '/integration/livepeer/video-on-demand'
 const livestreamPath = '/integration/livepeer/livestream'
-const watchVideoPath = '/integration/livepeer/video'
+const videoOnDemandPath = '/integration/livepeer/vod'
 
 export default function LayoutIntegration({ children }: { children: ReactNode }) {
   const pathname = usePathname()
@@ -50,19 +49,10 @@ export default function LayoutIntegration({ children }: { children: ReactNode })
               </LinkComponent>
               <motion.div className="mt-8 flex justify-center gap-14 text-2xl" variants={FADE_DOWN_ANIMATION_VARIANTS}>
                 <LinkComponent href={livestreamPath}>
-                  <button className={cn('btn hover:opacity-75', (pathname === videoOnDemandPath || pathname === watchVideoPath) && 'opacity-50')}>
-                    Livestream
-                  </button>
+                  <button className={cn('btn hover:opacity-75', pathname === videoOnDemandPath && 'opacity-50')}>Livestream</button>
                 </LinkComponent>
                 <LinkComponent href={videoOnDemandPath}>
-                  <button className={cn('btn hover:opacity-75', (pathname === livestreamPath || pathname === watchVideoPath) && 'opacity-50')}>
-                    Video on demand
-                  </button>
-                </LinkComponent>
-                <LinkComponent href={watchVideoPath}>
-                  <button className={cn('btn hover:opacity-75', (pathname === videoOnDemandPath || pathname === livestreamPath) && 'opacity-50')}>
-                    Watch Video
-                  </button>
+                  <button className={cn('btn hover:opacity-75', pathname === livestreamPath && 'opacity-50')}>Video on demand</button>
                 </LinkComponent>
               </motion.div>
             </motion.div>
