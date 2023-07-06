@@ -48,11 +48,11 @@ export default function LayoutIntegration({ children }: { children: ReactNode })
                 <button className="btn btn-primary">Documentation</button>
               </LinkComponent>
               <motion.div className="mt-8 flex justify-center gap-14 text-2xl" variants={FADE_DOWN_ANIMATION_VARIANTS}>
-                <LinkComponent href={livestreamPath}>
-                  <button className={cn('btn hover:opacity-75', pathname === videoOnDemandPath && 'opacity-50')}>Livestream</button>
-                </LinkComponent>
                 <LinkComponent href={videoOnDemandPath}>
                   <button className={cn('btn hover:opacity-75', pathname === livestreamPath && 'opacity-50')}>Video on demand</button>
+                </LinkComponent>
+                <LinkComponent href={livestreamPath}>
+                  <button className={cn('btn hover:opacity-75', pathname === videoOnDemandPath && 'opacity-50')}>Livestream</button>
                 </LinkComponent>
               </motion.div>
             </motion.div>
