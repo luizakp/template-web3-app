@@ -7,6 +7,9 @@ import { BiVideoPlus } from 'react-icons/bi'
 
 import { Progress } from '@/components/ui/progress'
 
+import { FormLivepeerApiKey } from './form-livepeer-api-key'
+import { useIsLivepeerApiKeySet } from '../hooks/use-livepeer-api-key'
+
 export function UploadFile() {
   const route = useRouter()
   const [video, setVideo] = useState<File | undefined>()
@@ -23,6 +26,7 @@ export function UploadFile() {
         }
       : null
   )
+  const isLivepeerApiKeySet = useIsLivepeerApiKeySet()
 
   const onDrop = useCallback(async (acceptedFiles: File[]) => {
     if (acceptedFiles && acceptedFiles.length > 0 && acceptedFiles?.[0]) {
@@ -71,38 +75,46 @@ export function UploadFile() {
   }, [asset])
 
   return (
-    <div className="flex h-full w-full flex-col gap-y-4">
-      {!asset && !video ? (
-        <div>
-          <div
-            {...getRootProps()}
-            className="relative flex w-full flex-col items-center rounded-lg border-2 border-dashed border-gray-300 p-12 text-center hover:border-gray-400 focus:outline-none focus:ring-2 focus:ring-emerald-300 focus:ring-offset-2">
-            <input {...getInputProps()} />
-
-            <BiVideoPlus fill="rgb(226 232 240)" size={108} />
-            <span className="mt-2 block text-sm font-semibold text-gray-400">Drop a video to upload</span>
-          </div>
-          {error?.message && <p>{error.message}</p>}
+    <div>
+      {!isLivepeerApiKeySet ? (
+        <div className="card">
+          <FormLivepeerApiKey />
         </div>
       ) : (
-        <div>
-          <div className="relative flex w-full flex-col items-center gap-y-4 rounded-lg border-2 border-dashed border-gray-300 p-12 text-center hover:border-gray-400 focus:outline-none focus:ring-2 focus:ring-emerald-300 focus:ring-offset-2">
-            {video && <p>{video.name}</p>}
-            {progress && totalProgress > 0 && totalProgress < 100 && <Progress value={totalProgress} />}
-            {progressFormatted && <p>{progressFormatted}</p>}
-          </div>
-        </div>
-      )}
+        <div className="flex h-full w-full flex-col gap-y-4">
+          {!asset && !video ? (
+            <div>
+              <div
+                {...getRootProps()}
+                className="relative flex w-full flex-col items-center rounded-lg border-2 border-dashed border-gray-300 p-12 text-center hover:border-gray-400 focus:outline-none focus:ring-2 focus:ring-emerald-300 focus:ring-offset-2">
+                <input {...getInputProps()} />
 
-      {!asset?.[0].id && (
-        <button
-          className="btn btn-emerald"
-          disabled={isLoading || !createAsset}
-          onClick={() => {
-            createAsset?.()
-          }}>
-          {isLoading ? 'Uploading...' : 'Upload Video'}
-        </button>
+                <BiVideoPlus fill="rgb(226 232 240)" size={108} />
+                <span className="mt-2 block text-sm font-semibold text-gray-400">Drop a video to upload</span>
+              </div>
+              {error?.message && <p>{error.message}</p>}
+            </div>
+          ) : (
+            <div>
+              <div className="relative flex w-full flex-col items-center gap-y-4 rounded-lg border-2 border-dashed border-gray-300 p-12 text-center hover:border-gray-400 focus:outline-none focus:ring-2 focus:ring-emerald-300 focus:ring-offset-2">
+                {video && <p>{video.name}</p>}
+                {progress && totalProgress > 0 && totalProgress < 100 && <Progress value={totalProgress} />}
+                {progressFormatted && <p>{progressFormatted}</p>}
+              </div>
+            </div>
+          )}
+
+          {!asset?.[0].id && (
+            <button
+              className="btn btn-emerald"
+              disabled={isLoading || !createAsset}
+              onClick={() => {
+                createAsset?.()
+              }}>
+              {isLoading ? 'Uploading...' : 'Upload Video'}
+            </button>
+          )}
+        </div>
       )}
     </div>
   )

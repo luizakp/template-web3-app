@@ -7,17 +7,18 @@ import { useForm } from 'react-hook-form'
 import { useToast } from '@/lib/hooks/use-toast'
 
 import { NotFoundError, PermissionError, useCheckLivepeerApiKey } from '../hooks/use-check-livepeer-api-key'
-import { useIsLivepeerApiKeySet } from '../hooks/use-livepeer-api-key'
+import { useIsLivepeerApiKeySet, useLivepeerApiKey } from '../hooks/use-livepeer-api-key'
 
 interface livepeerForm {
   apiKey: string
 }
 
-export function FormLivepeerApiKey({ setCustomApiKey }: { setCustomApiKey: (apiKey: string) => void }) {
+export function FormLivepeerApiKey() {
   const { register, handleSubmit } = useForm<livepeerForm>()
   const [apiKey, setApiKey] = useState<string>('')
   const { checkLivepeerApiKey } = useCheckLivepeerApiKey()
   const { toast, dismiss } = useToast()
+  const [, setLivepeerApiKey] = useLivepeerApiKey()
 
   const isLivepeerApiKeySet = useIsLivepeerApiKeySet()
   useEffect(() => {
@@ -50,7 +51,7 @@ export function FormLivepeerApiKey({ setCustomApiKey }: { setCustomApiKey: (apiK
         await checkLivepeerApiKey(FieldValues.apiKey)
       } catch (e) {
         if (e instanceof NotFoundError || e instanceof PermissionError) {
-          setCustomApiKey(FieldValues.apiKey)
+          setLivepeerApiKey(FieldValues.apiKey)
         } else {
           handleToast({
             title: 'Invalid API Key',

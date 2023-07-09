@@ -6,13 +6,12 @@ import { LinkComponent } from '@/components/shared/link-component'
 import { FormLivepeerApiKey } from '@/integrations/livepeer/components/form-livepeer-api-key'
 import { PlayerComponent, PlayerType } from '@/integrations/livepeer/components/player'
 import { Spinner } from '@/integrations/livepeer/components/spinner'
-import { useIsLivepeerApiKeySet, useLivepeerApiKey } from '@/integrations/livepeer/hooks/use-livepeer-api-key'
+import { useIsLivepeerApiKeySet } from '@/integrations/livepeer/hooks/use-livepeer-api-key'
 
 export default function Page({ params }: { params: { assetId: string } }) {
   const watchVideoPath = '/integration/livepeer/video'
 
   const isLivepeerApiKeySet = useIsLivepeerApiKeySet()
-  const [, setLivepeerApiKey] = useLivepeerApiKey()
 
   const { data: asset, error } = useAsset({
     assetId: params.assetId,
@@ -23,7 +22,7 @@ export default function Page({ params }: { params: { assetId: string } }) {
       <div className="mt-20 flex w-full flex-col items-center justify-center">
         {!isLivepeerApiKeySet ? (
           <div className="card">
-            <FormLivepeerApiKey setCustomApiKey={setLivepeerApiKey} />
+            <FormLivepeerApiKey />
           </div>
         ) : (
           <>

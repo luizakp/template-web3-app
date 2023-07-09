@@ -4,7 +4,7 @@ import { useState } from 'react'
 
 import { LinkComponent } from '@/components/shared/link-component'
 import { FormLivepeerApiKey } from '@/integrations/livepeer/components/form-livepeer-api-key'
-import { useIsLivepeerApiKeySet, useLivepeerApiKey } from '@/integrations/livepeer/hooks/use-livepeer-api-key'
+import { useIsLivepeerApiKeySet } from '@/integrations/livepeer/hooks/use-livepeer-api-key'
 
 export default function PageIntegration() {
   const newVodPath = '/integration/livepeer/vod/new'
@@ -13,11 +13,9 @@ export default function PageIntegration() {
   const [isLoadingNewVideo, setIsLoadingNewVideo] = useState<boolean>(false)
   const [isLoadingExistingVideo, setIsLoadingExistingVideo] = useState<boolean>(false)
   const isLivepeerApiKeySet = useIsLivepeerApiKeySet()
-  const [, setLivepeerApiKey] = useLivepeerApiKey()
-
   return (
     <div className="card">
-      {!isLivepeerApiKeySet && <FormLivepeerApiKey setCustomApiKey={setLivepeerApiKey} />}
+      {!isLivepeerApiKeySet && <FormLivepeerApiKey />}
       <LinkComponent href={newVodPath}>
         <button className="btn btn-emerald mt-4 w-full" disabled={!isLivepeerApiKeySet} onClick={() => setIsLoadingNewVideo(true)}>
           {isLoadingNewVideo ? 'Loading...' : 'Upload a new video'}
