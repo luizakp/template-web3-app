@@ -49,7 +49,7 @@ export default function LayoutIntegration({ children }: { children: ReactNode })
               <LinkComponent isExternal href={turboIntegrations.livepeer.url}>
                 <button className="btn btn-primary">Documentation</button>
               </LinkComponent>
-              <motion.div className="mt-8 flex justify-center gap-14 text-2xl" variants={FADE_DOWN_ANIMATION_VARIANTS}>
+              <motion.div className="mt-8 flex flex-col justify-center gap-x-14 text-2xl sm:flex-row" variants={FADE_DOWN_ANIMATION_VARIANTS}>
                 <LinkComponent href={videoOnDemandPath}>
                   <button className={cn('btn hover:opacity-75', pathname === livestreamPath && 'opacity-50')}>Video on demand</button>
                 </LinkComponent>
