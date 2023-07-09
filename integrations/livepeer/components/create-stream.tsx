@@ -9,6 +9,7 @@ import { BiInfoCircle } from 'react-icons/bi'
 import { FaCopy } from 'react-icons/fa'
 
 import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip'
+import { useToast } from '@/lib/hooks/use-toast'
 
 import { FormLivepeerApiKey } from './form-livepeer-api-key'
 import { PlayerComponent, PlayerType } from './player'
@@ -23,6 +24,7 @@ export const CreateStream = () => {
   const { register, handleSubmit } = useForm<createStreamForm>()
   const { mutate: createStream, data: streamData, status } = useCreateStream(streamName ? { name: streamName } : null)
   const isLivepeerApiKeySet = useIsLivepeerApiKeySet()
+  const { toast, dismiss } = useToast()
 
   const OBS_URL = 'https://obsproject.com/'
   const streamIdTooltip = 'This is your Stream ID. You can copy and use to watch on the player'
@@ -34,6 +36,17 @@ export const CreateStream = () => {
   }
 
   const streamRtpmIngestUrl = 'rtmp://rtmp.livepeer.com/live'
+
+  const handleToast = ({ title, description }: { title: string; description: string }) => {
+    toast({
+      title,
+      description,
+    })
+
+    setTimeout(() => {
+      dismiss()
+    }, 4200)
+  }
 
   return (
     <div>
@@ -108,11 +121,39 @@ export const CreateStream = () => {
               <div className="flex flex-col gap-y-4">
                 <div>
                   <label>RTMP Ingest URL</label>
-                  <input className="input mt-4" value={streamRtpmIngestUrl} />
+                  <div className="mt-4 flex items-center gap-x-4">
+                    <input className="input" value={streamRtpmIngestUrl} />
+                    <CopyToClipboard text={streamRtpmIngestUrl}>
+                      <span
+                        className="flex-center flex h-7 w-7 cursor-pointer rounded-md bg-neutral-100 p-2 hover:bg-neutral-200 dark:bg-neutral-800 hover:dark:bg-neutral-900"
+                        onClick={() => {
+                          handleToast({
+                            title: 'Copied to clipboard!',
+                            description: 'You can now paste the RTMP Ingest URL on OBS',
+                          })
+                        }}>
+                        <FaCopy className=" text-neutral-600 dark:text-neutral-100" />
+                      </span>
+                    </CopyToClipboard>
+                  </div>
                 </div>
                 <div>
                   <label>Stream Key</label>
-                  <input className="input mt-4" value={streamData?.streamKey} />
+                  <div className="mt-4 flex items-center gap-x-4">
+                    <input className="input" value={streamData?.streamKey} />
+                    <CopyToClipboard text={streamData?.streamKey}>
+                      <span
+                        className="flex-center flex h-7 w-7 cursor-pointer rounded-md bg-neutral-100 p-2 hover:bg-neutral-200 dark:bg-neutral-800 hover:dark:bg-neutral-900"
+                        onClick={() => {
+                          handleToast({
+                            title: 'Copied to clipboard!',
+                            description: 'You can now paste the Stream Key on OBS',
+                          })
+                        }}>
+                        <FaCopy className=" text-neutral-600 dark:text-neutral-100" />
+                      </span>
+                    </CopyToClipboard>
+                  </div>
                 </div>
                 <div>
                   <div className="flex items-center gap-x-2">
@@ -124,10 +165,17 @@ export const CreateStream = () => {
                       <TooltipContent>{streamIdTooltip}</TooltipContent>
                     </Tooltip>
                   </div>
-                  <div className="flex">
-                    <input className="input mt-4" value={streamData.id} />
+                  <div className="mt-4 flex items-center gap-x-4">
+                    <input className="input" value={streamData.id} />
                     <CopyToClipboard text={streamData.id}>
-                      <span className="flex-center flex h-7 w-7 cursor-pointer rounded-md bg-neutral-100 p-2 hover:bg-neutral-200 dark:bg-neutral-800 hover:dark:bg-neutral-900">
+                      <span
+                        className="flex-center flex h-7 w-7 cursor-pointer rounded-md bg-neutral-100 p-2 hover:bg-neutral-200 dark:bg-neutral-800 hover:dark:bg-neutral-900"
+                        onClick={() => {
+                          handleToast({
+                            title: 'Copied to clipboard!',
+                            description: 'You can now paste the Stream ID on the demo player',
+                          })
+                        }}>
                         <FaCopy className=" text-neutral-600 dark:text-neutral-100" />
                       </span>
                     </CopyToClipboard>
