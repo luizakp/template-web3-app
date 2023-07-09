@@ -8,6 +8,7 @@ import Balancer from 'react-wrap-balancer'
 import { LinkComponent } from '@/components/shared/link-component'
 import { FADE_DOWN_ANIMATION_VARIANTS } from '@/config/design'
 import { turboIntegrations } from '@/data/turbo-integrations'
+import { useLivepeerApiKey } from '@/integrations/livepeer/hooks/use-livepeer-api-key'
 import { LivepeerProvider } from '@/integrations/livepeer/livepeer-provider'
 import { cn } from '@/lib/utils'
 
@@ -16,9 +17,10 @@ const videoOnDemandPath = '/integration/livepeer/vod'
 
 export default function LayoutIntegration({ children }: { children: ReactNode }) {
   const pathname = usePathname()
+  const [livepeerApiKey] = useLivepeerApiKey()
 
   return (
-    <LivepeerProvider>
+    <LivepeerProvider customApiKey={livepeerApiKey}>
       <motion.div
         animate="show"
         className="h-full w-full"
