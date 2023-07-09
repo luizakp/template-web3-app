@@ -18,7 +18,7 @@ export function FormLivepeerAsset() {
   function onSubmit(FieldValues: livepeerForm) {
     setIsLoading(true)
     if (FieldValues.assetId !== '') {
-      route.push(`/integration/livepeer/video/${FieldValues.assetId}`)
+      route.push(`/integration/livepeer/vod/${FieldValues.assetId}`)
     }
   }
   return (
