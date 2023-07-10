@@ -8,8 +8,8 @@ import { getLivepeerClient } from './livepeer-client'
 
 const livepeerTheme: ThemeConfig = {
   colors: {
-    accent: '#00eb87',
-    containerBorderColor: '#00eb87',
+    accent: '#f9f2c0',
+    containerBorderColor: '#f9f2c0',
   },
   fonts: {
     display: 'Inter',
