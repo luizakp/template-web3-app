@@ -7,19 +7,26 @@ import { FormLivepeerApiKey } from '@/integrations/livepeer/components/form-live
 import { useIsLivepeerApiKeySet } from '@/integrations/livepeer/hooks/use-livepeer-api-key'
 
 export default function PageIntegration() {
-  const newStreamPath = '/integration/livepeer/livestream/new'
+  const newStreamObsPath = '/integration/livepeer/livestream/new/obs'
+  const newStreamBrowserPath = '/integration/livepeer/livestream/new/browser'
   const watchStreamPath = '/integration/livepeer/livestream/watch'
 
-  const [isLoadingNewStream, setIsLoadingNewStream] = useState<boolean>(false)
+  const [isLoadingNewStreamObs, setIsLoadingNewStreamObs] = useState<boolean>(false)
+  const [isLoadingNewStreamBrowser, setIsLoadingNewStreamBrowser] = useState<boolean>(false)
   const [isLoadingExistingStream, setIsLoadingExistingStream] = useState<boolean>(false)
   const isLivepeerApiKeySet = useIsLivepeerApiKeySet()
 
   return (
     <div className="card">
       {!isLivepeerApiKeySet && <FormLivepeerApiKey />}
-      <LinkComponent href={newStreamPath}>
-        <button className="btn btn-emerald mt-4 w-full" disabled={!isLivepeerApiKeySet} onClick={() => setIsLoadingNewStream(true)}>
-          {isLoadingNewStream ? 'Loading...' : 'Create a new livestream'}
+      <LinkComponent href={newStreamObsPath}>
+        <button className="btn btn-emerald mt-4 w-full" disabled={!isLivepeerApiKeySet} onClick={() => setIsLoadingNewStreamObs(true)}>
+          {isLoadingNewStreamObs ? 'Loading...' : 'Create a new OBS livestream'}
+        </button>
+      </LinkComponent>
+      <LinkComponent href={newStreamBrowserPath}>
+        <button className="btn btn-emerald mt-4 w-full" disabled={!isLivepeerApiKeySet} onClick={() => setIsLoadingNewStreamBrowser(true)}>
+          {isLoadingNewStreamBrowser ? 'Loading...' : 'Create a new Browser livestream'}
         </button>
       </LinkComponent>
       <LinkComponent href={watchStreamPath}>

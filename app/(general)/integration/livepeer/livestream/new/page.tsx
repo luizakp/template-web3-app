@@ -1,5 +1,4 @@
-import { CreateStream } from '@/integrations/livepeer/components/create-stream'
-
+import { redirect } from 'next/navigation'
 export default function PageIntegration() {
-  return <CreateStream />
+  redirect('/integration/livepeer/livestream')
 }
