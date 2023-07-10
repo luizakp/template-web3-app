@@ -17,7 +17,7 @@ const livepeerTheme: ThemeConfig = {
 }
 
 export function LivepeerProvider({ children, customApiKey }: { children: ReactNode; customApiKey?: string }) {
-  const apiKey = customApiKey === undefined ? (env.NEXT_PUBLIC_LIVEPEER_API_KEY ? env.NEXT_PUBLIC_LIVEPEER_API_KEY : 'Initial Key') : customApiKey
+  const apiKey = customApiKey ?? (env.NEXT_PUBLIC_LIVEPEER_API_KEY ? env.NEXT_PUBLIC_LIVEPEER_API_KEY : 'Initial Key')
 
   if (!apiKey) {
     throw new Error('No Livepeer API key provided')
