@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useState } from 'react'
+import { useEffect } from 'react'
 
 import { useForm } from 'react-hook-form'
 
@@ -14,11 +14,12 @@ interface livepeerForm {
 }
 
 export function FormLivepeerApiKey() {
-  const { register, handleSubmit } = useForm<livepeerForm>()
-  const [apiKey, setApiKey] = useState<string>('')
+  const { register, handleSubmit, watch } = useForm<livepeerForm>()
   const { checkLivepeerApiKey } = useCheckLivepeerApiKey()
   const { toast, dismiss } = useToast()
   const [, setLivepeerApiKey] = useLivepeerApiKey()
+
+  const watchApiKey = watch('apiKey')
 
   const isLivepeerApiKeySet = useIsLivepeerApiKeySet()
   useEffect(() => {
@@ -65,15 +66,8 @@ export function FormLivepeerApiKey() {
     <div className="w-full">
       <form onSubmit={handleSubmit(onSubmit)}>
         <label>Livepeer API Key</label>
-        <input
-          required
-          className="input mt-4"
-          {...register('apiKey')}
-          placeholder="xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx"
-          value={apiKey}
-          onChange={(e) => setApiKey(e.target.value)}
-        />
-        <button className="btn btn-emerald mt-4 w-full" disabled={!apiKey} type="submit">
+        <input required className="input mt-4" {...register('apiKey')} placeholder="xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx" />
+        <button className="btn btn-emerald mt-4 w-full" disabled={!watchApiKey} type="submit">
           Submit
         </button>
       </form>
