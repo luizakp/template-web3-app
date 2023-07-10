@@ -38,7 +38,7 @@ export function UploadFile() {
 
   const { getRootProps, getInputProps } = useDropzone({
     accept: {
-      'video/*': ['*.mp4'],
+      'video/mp4': ['.mp4', '.MP4'],
     },
     maxFiles: 1,
     onDrop,
@@ -92,7 +92,7 @@ export function UploadFile() {
                 <input {...getInputProps()} />
 
                 <BiVideoPlus fill="rgb(226 232 240)" size={108} />
-                <span className="mt-2 block text-sm font-semibold text-gray-400">Drop a video to upload</span>
+                <span className="mt-2 block justify-center text-sm font-semibold text-gray-400">Drop a video or Click to browse</span>
               </div>
               {error?.message && <p>{error.message}</p>}
             </div>
